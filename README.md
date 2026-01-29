@@ -73,6 +73,17 @@ finalytics/
 | `start`      | Run compiled application                 |
 | `type-check` | Run TypeScript compiler without output   |
 
+## Dependencies
+
+### Core Dependencies
+- **axios** - HTTP client for API requests
+- **dotenv** - Environment variable management
+
+### Development Dependencies
+- **typescript** - TypeScript compiler
+- **tsx** - TypeScript execution engine
+- **@types/node** - TypeScript definitions for Node.js
+
 ## Documentation
 
 - [Changelog](CHANGELOG.md) - Notable changes to the project
