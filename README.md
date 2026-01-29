@@ -5,7 +5,11 @@ Financial analytics and data processing platform.
 ## Requirements
 
 - Node.js 22.x or later (LTS)
-- npm 10.x or later
+- pnpm 10.x or later
+
+## Package Manager
+
+This project uses [pnpm](https://pnpm.io/) as its package manager. The version is pinned via the `packageManager` field in `package.json`.
 
 ## Installation
 
@@ -15,7 +19,7 @@ git clone <repository-url>
 cd finalytics
 
 # Install dependencies
-npm install
+pnpm install
 ```
 
 ## Usage
@@ -25,7 +29,7 @@ npm install
 Run the development server with hot reload:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ### Production
@@ -33,8 +37,8 @@ npm run dev
 Build and run for production:
 
 ```bash
-npm run build
-npm start
+pnpm run build
+pnpm start
 ```
 
 ### Type Checking
@@ -42,7 +46,7 @@ npm start
 Run TypeScript type checking without emitting files:
 
 ```bash
-npm run type-check
+pnpm run type-check
 ```
 
 ## Project Structure
@@ -68,6 +72,10 @@ finalytics/
 | `build`      | Compile TypeScript to JavaScript         |
 | `start`      | Run compiled application                 |
 | `type-check` | Run TypeScript compiler without output   |
+
+## Documentation
+
+- [Changelog](CHANGELOG.md) - Notable changes to the project
 
 ## License
 
