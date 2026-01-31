@@ -19,3 +19,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
+- Updated README with CoinDCX integration documentation and usage examples
