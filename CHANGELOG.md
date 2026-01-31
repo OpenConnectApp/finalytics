@@ -11,3 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial project setup with TypeScript and Node.js
 - Package manager specification (pnpm)
 - Changelog for tracking project changes
+- Authentication utilities for CoinDCX API (generateSignature, createAuthHeaders, createPayload)
+- HTTP client utilities for CoinDCX API requests
+- getBalances() API method to fetch user account balances
+- testConnection() method to verify API credentials
+- Barrel export for CoinDCX integration module
+
+### Changed
+- Refactored test script to use separate coindcxBalance() function
+- Updated README with CoinDCX integration documentation and usage examples

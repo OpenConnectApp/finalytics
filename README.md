@@ -73,6 +73,85 @@ finalytics/
 | `start`      | Run compiled application                 |
 | `type-check` | Run TypeScript compiler without output   |
 
+## Dependencies
+
+### Core Dependencies
+- **axios** - HTTP client for API requests
+- **dotenv** - Environment variable management
+
+### Development Dependencies
+- **typescript** - TypeScript compiler
+- **tsx** - TypeScript execution engine
+- **@types/node** - TypeScript definitions for Node.js
+
+## CoinDCX Integration
+
+### Setup
+
+1. Get your CoinDCX API credentials:
+   - Visit [CoinDCX API Dashboard](https://coindcx.com/api-dashboard)
+   - Create a new API key
+   - Copy the **API Key** and **API Secret**
+
+2. Add credentials to your `.env` file:
+```bash
+COINDCX_API_KEY=your_actual_api_key_here
+COINDCX_API_SECRET=your_actual_api_secret_here
+```
+
+### Usage
+
+#### Fetch Account Balances
+
+Run the test script to fetch and display your CoinDCX account balances:
+```bash
+pnpm run dev
+```
+
+#### Programmatic Usage
+```typescript
+import { getBalances, testConnection } from './integrations/coindcx';
+import { getCoinDCXConfig } from './config';
+
+// Load configuration
+const config = getCoinDCXConfig();
+
+// Test connection
+const isConnected = await testConnection(config);
+console.log('Connected:', isConnected);
+
+// Get balances
+const balances = await getBalances(config);
+console.log('Balances:', balances);
+```
+
+### API Reference
+
+#### `getBalances(config: CoinDCXConfig): Promise<CoinDCXBalance[]>`
+Fetches all account balances from CoinDCX.
+
+**Returns:**
+```typescript
+[
+  {
+    currency: "BTC",
+    balance: 0.5,
+    locked_balance: 0.1
+  },
+  ...
+]
+```
+
+#### `testConnection(config: CoinDCXConfig): Promise<boolean>`
+Tests if the API credentials are valid.
+
+**Returns:** `true` if connection successful, `false` otherwise
+
+### CoinDCX Documentation
+
+- [CoinDCX API Documentation](https://docs.coindcx.com/)
+- [Get API Credentials](https://coindcx.com/api-dashboard)
+
 ## Documentation
 
 - [Changelog](CHANGELOG.md) - Notable changes to the project
