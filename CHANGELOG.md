@@ -16,3 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - getBalances() API method to fetch user account balances
 - testConnection() method to verify API credentials
 - Barrel export for CoinDCX integration module
+
+### Changed
+- Refactored test script to use separate coindcxBalance() function
