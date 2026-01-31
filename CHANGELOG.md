@@ -13,3 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changelog for tracking project changes
 - Authentication utilities for CoinDCX API (generateSignature, createAuthHeaders, createPayload)
 - HTTP client utilities for CoinDCX API requests
+- getBalances() API method to fetch user account balances
+- testConnection() method to verify API credentials
