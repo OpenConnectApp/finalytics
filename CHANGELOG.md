@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Package manager specification (pnpm)
 - Changelog for tracking project changes
 - Authentication utilities for CoinDCX API (generateSignature, createAuthHeaders, createPayload)
+- HTTP client utilities for CoinDCX API requests
