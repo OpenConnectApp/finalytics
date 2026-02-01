@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TransactionType enum for normalized transaction types
 - TransactionFilters interface for querying transactions
 - ExchangeProvider interface for consistent exchange integration API
+- createCoinDCXProvider factory function
+- Balance normalization from CoinDCX to common format
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
