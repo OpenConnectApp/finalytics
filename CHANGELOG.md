@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Common exchange types (Balance, Transaction, ExchangeInfo)
 - TransactionType enum for normalized transaction types
 - TransactionFilters interface for querying transactions
+- ExchangeProvider interface for consistent exchange integration API
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
