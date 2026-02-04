@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ExchangeProvider interface for consistent exchange integration API
 - createCoinDCXProvider factory function
 - Balance normalization from CoinDCX to common format
+- Documentation for ExchangeProvider architecture and pattern
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
