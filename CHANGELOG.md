@@ -16,6 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - getBalances() API method to fetch user account balances
 - testConnection() method to verify API credentials
 - Barrel export for CoinDCX integration module
+- Common exchange types (Balance, Transaction, ExchangeInfo)
+- TransactionType enum for normalized transaction types
+- TransactionFilters interface for querying transactions
+- ExchangeProvider interface for consistent exchange integration API
+- createCoinDCXProvider factory function
+- Balance normalization from CoinDCX to common format
+- Documentation for ExchangeProvider architecture and pattern
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function

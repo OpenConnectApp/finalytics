@@ -152,6 +152,48 @@ Tests if the API credentials are valid.
 - [CoinDCX API Documentation](https://docs.coindcx.com/)
 - [Get API Credentials](https://coindcx.com/api-dashboard)
 
+## Exchange Provider Architecture
+
+Finalytics uses a provider pattern to support multiple cryptocurrency exchanges with a consistent interface.
+
+### Architecture
+
+```
+ExchangeProvider Interface
+    ↓
+    ├── CoinDCXProvider (implemented)
+    ├── CoinSwitchProvider (planned)
+    └── [Future exchanges...]
+```
+
+### Creating a Provider
+
+```typescript
+import { createCoinDCXProvider } from './integrations/providers/CoinDCXProvider';
+import { getCoinDCXConfig } from './config';
+
+// Create provider
+const config = getCoinDCXConfig();
+const provider = createCoinDCXProvider(config);
+
+// All providers have the same interface:
+const info = provider.getExchangeInfo();
+const isConnected = await provider.testConnection();
+const balances = await provider.getBalances();
+// const transactions = await provider.getTransactions(); // Coming soon
+```
+
+### Adding New Exchanges
+
+To add a new exchange:
+
+1. Create exchange-specific integration in `src/integrations/[exchange]/`
+2. Create provider in `src/integrations/providers/[Exchange]Provider.ts`
+3. Implement `ExchangeProvider` interface
+4. Export factory function `create[Exchange]Provider()`
+
+See `CoinDCXProvider.ts` for reference implementation.
+
 ## Documentation
 
 - [Changelog](CHANGELOG.md) - Notable changes to the project
