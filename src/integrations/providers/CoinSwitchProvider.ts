@@ -2,11 +2,11 @@ import type { CoinSwitchConfig, CoinSwitchPortfolioItem } from '../../types/coin
 import type {
   Balance,
   ExchangeInfo,
-  ExchangeProvider,
   Transaction,
   TransactionFilters,
 } from '../../types/exchange.js';
 import { TransactionType } from '../../types/exchange.js';
+import type { ExchangeProvider } from './ExchangeProvider.js';
 import {
   testConnection,
   getPortfolio,
@@ -100,7 +100,7 @@ export function createCoinSwitchProvider(
         }
 
         // Extract currency from symbol (e.g., "BTC/INR" -> "BTC")
-        const [currency] = order.symbol.split('/');
+        const [currency = ''] = order.symbol.split('/');
 
         return {
           id: order.order_id,
