@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@noble/ed25519':
+        specifier: ^3.0.0
+        version: 3.0.0
       axios:
         specifier: ^1.13.4
         version: 1.13.4
@@ -182,6 +185,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@noble/ed25519@3.0.0':
+    resolution: {integrity: sha512-QyteqMNm0GLqfa5SoYbSC3+Pvykwpn95Zgth4MFVSMKBB75ELl9tX1LAVsN4c3HXOrakHsF2gL4zWDAYCcsnzg==}
 
   '@types/node@22.19.7':
     resolution: {integrity: sha512-MciR4AKGHWl7xwxkBa6xUGxQJ4VBOmPTF7sL+iGzuahOFaO0jHCsuEfS80pan1ef4gWId1oWOweIhrDEYLuaOw==}
@@ -391,6 +397,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.2':
     optional: true
+
+  '@noble/ed25519@3.0.0': {}
 
   '@types/node@22.19.7':
     dependencies:
