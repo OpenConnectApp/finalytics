@@ -78,6 +78,7 @@ finalytics/
 ### Core Dependencies
 - **axios** - HTTP client for API requests
 - **dotenv** - Environment variable management
+- **@noble/ed25519** - Ed25519 cryptography for CoinSwitch authentication
 
 ### Development Dependencies
 - **typescript** - TypeScript compiler
@@ -152,6 +153,72 @@ Tests if the API credentials are valid.
 - [CoinDCX API Documentation](https://docs.coindcx.com/)
 - [Get API Credentials](https://coindcx.com/api-dashboard)
 
+## CoinSwitch Integration
+
+### Setup
+
+1. Get your CoinSwitch PRO API credentials:
+   - Visit [CoinSwitch PRO](https://coinswitch.co/pro)
+   - Navigate to API settings
+   - Create a new API key with Ed25519 signature
+   - Copy the **API Key** and **Secret Key** (hex-encoded)
+
+2. Add credentials to your `.env` file:
+```bash
+COINSWITCH_API_KEY=your_actual_api_key_here
+COINSWITCH_API_SECRET=your_hex_encoded_secret_key_here
+```
+
+### Usage
+
+#### Programmatic Usage
+```typescript
+import { createCoinSwitchProvider } from './integrations/providers/CoinSwitchProvider';
+
+const config = {
+  apiKey: process.env.COINSWITCH_API_KEY!,
+  apiSecret: process.env.COINSWITCH_API_SECRET!,
+};
+
+const provider = createCoinSwitchProvider(config);
+
+// Test connection
+const isConnected = await provider.testConnection();
+console.log('Connected:', isConnected);
+
+// Get balances
+const balances = await provider.getBalances();
+console.log('Balances:', balances);
+
+// Get transactions (orders)
+const transactions = await provider.getTransactions({
+  startDate: new Date('2024-01-01'),
+  endDate: new Date(),
+});
+console.log('Transactions:', transactions);
+```
+
+### API Reference
+
+#### `createCoinSwitchProvider(config: CoinSwitchConfig): ExchangeProvider`
+Creates a CoinSwitch provider instance.
+
+#### `provider.getBalances(): Promise<Balance[]>`
+Fetches portfolio balances in normalized format.
+
+#### `provider.getTransactions(filters?): Promise<Transaction[]>`
+Fetches order history (open and closed orders).
+
+**Filters:**
+- `startDate` - Filter orders from this date
+- `endDate` - Filter orders until this date
+- `currency` - Filter by currency (e.g., "BTC")
+- `type` - Filter by transaction type (BUY, SELL)
+
+### CoinSwitch Documentation
+
+- [CoinSwitch PRO](https://coinswitch.co/pro)
+
 ## Exchange Provider Architecture
 
 Finalytics uses a provider pattern to support multiple cryptocurrency exchanges with a consistent interface.
@@ -162,7 +229,7 @@ Finalytics uses a provider pattern to support multiple cryptocurrency exchanges 
 ExchangeProvider Interface
     ↓
     ├── CoinDCXProvider (implemented)
-    ├── CoinSwitchProvider (planned)
+    ├── CoinSwitchProvider (implemented)
     └── [Future exchanges...]
 ```
 

@@ -28,6 +28,7 @@
   },
   "packageManager": "pnpm@10.1.0",
   "dependencies": {
+    "@noble/ed25519": "^3.0.0",
     "axios": "^1.13.4",
     "dotenv": "^17.2.3"
   }
