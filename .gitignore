@@ -45,3 +45,5 @@ tmp/
 temp/
 *.tmp
 steps.md
+
+/src/generated/prisma
