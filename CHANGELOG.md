@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - createCoinDCXProvider factory function
 - Balance normalization from CoinDCX to common format
 - Documentation for ExchangeProvider architecture and pattern
+- Database schema for multi-tenant support
+- User, Portfolio, ConnectedExchange models
+- Balance and Transaction tracking
+- BalanceHistory for portfolio analytics
+- Encrypted credentials storage support
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
