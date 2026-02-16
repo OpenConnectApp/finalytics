@@ -28,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Balance and Transaction tracking
 - BalanceHistory for portfolio analytics
 - Encrypted credentials storage support
+- Prisma Client generation for type-safe database access
+- Initial database migration files
+- Database setup and migration documentation
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
