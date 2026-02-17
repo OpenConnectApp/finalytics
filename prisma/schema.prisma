@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model - represents app users
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  portfolios Portfolio[]
+  exchanges  ConnectedExchange[]
+
+  @@map("users")
+}
+
+// Portfolio model - users can have multiple portfolios
+model Portfolio {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balances     Balance[]
+  transactions Transaction[]
+
+  @@map("portfolios")
+}
+
+// Connected Exchange - stores encrypted API credentials
+model ConnectedExchange {
+  id           String   @id @default(cuid())
+  userId       String
+  exchangeId   String   // 'coindcx', 'coinswitch', etc.
+  exchangeName String   // 'CoinDCX', 'CoinSwitch', etc.
+  apiKey       String   // Encrypted
+  apiSecret    String   // Encrypted
+  isActive     Boolean  @default(true)
+  lastSyncedAt DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, exchangeId])
+  @@map("connected_exchanges")
+}
+
+// Balance - current balances for each currency
+model Balance {
+  id          String   @id @default(cuid())
+  portfolioId String
+  exchangeId  String   // 'coindcx', 'coinswitch', etc.
+  currency    String   // 'BTC', 'ETH', 'INR', etc.
+  available   Float
+  locked      Float
+  total       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@unique([portfolioId, exchangeId, currency])
+  @@map("balances")
+}
+
+// Transaction - buy, sell, deposit, withdrawal records
+model Transaction {
+  id             String          @id @default(cuid())
+  portfolioId    String
+  exchangeId     String          // 'coindcx', 'coinswitch', etc.
+  externalId     String?         // Transaction ID from exchange
+  type           TransactionType
+  currency       String          // 'BTC', 'ETH', etc.
+  amount         Float
+  price          Float?          // Price at which transaction occurred
+  fee            Float?
+  status         String?         // 'completed', 'pending', 'failed'
+  timestamp      DateTime
+  metadata       Json?           // Additional exchange-specific data
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@unique([portfolioId, exchangeId, externalId])
+  @@index([portfolioId, timestamp])
+  @@index([exchangeId, timestamp])
+  @@map("transactions")
+}
+
+// Transaction types enum
+enum TransactionType {
+  BUY
+  SELL
+  DEPOSIT
+  WITHDRAWAL
+  TRANSFER
+}
+
+// Balance History - snapshots for historical tracking
+model BalanceHistory {
+  id          String   @id @default(cuid())
+  portfolioId String
+  exchangeId  String
+  currency    String
+  available   Float
+  locked      Float
+  total       Float
+  snapshotAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@index([portfolioId, snapshotAt])
+  @@index([exchangeId, snapshotAt])
+  @@map("balance_history")
+}

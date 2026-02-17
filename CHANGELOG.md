@@ -23,6 +23,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - createCoinDCXProvider factory function
 - Balance normalization from CoinDCX to common format
 - Documentation for ExchangeProvider architecture and pattern
+- Database schema for multi-tenant support
+- User, Portfolio, ConnectedExchange models
+- Balance and Transaction tracking
+- BalanceHistory for portfolio analytics
+- Encrypted credentials storage support
+- Prisma Client generation for type-safe database access
+- Initial database migration files
+- Database setup and migration documentation
+- Database access layer with repository pattern
+- Prisma Client singleton for connection management
+- UserRepository for user operations
+- PortfolioRepository for portfolio management
+- ExchangeRepository for encrypted credentials
+- BalanceRepository with upsert support
+- TransactionRepository with filtering and pagination
+- AES-256-GCM encryption utilities for API credentials
+- `encrypt()` and `decrypt()` functions with scrypt key derivation
+- `encryptCredentials()` and `decryptCredentials()` helper functions
+- `getEncryptionSecret()` environment config function
+- ENCRYPTION_SECRET to .env.example
+- ExchangeService as core business logic layer
+- connectExchange with credential validation and encryption
+- disconnectExchange with soft delete support
+- syncBalances - live balance fetch and database upsert
+- syncTransactions - trade history sync with deduplication
+- syncAll - full sync across all connected exchanges
+- Sensitive credential stripping on getConnectedExchanges
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function

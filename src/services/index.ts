@@ -14,3 +14,5 @@ export async function processAnalytics(data: number[]): Promise<AnalyticsResult>
     period: "current",
   };
 }
+
+export * from './exchange.service.js';
