@@ -31,6 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Prisma Client generation for type-safe database access
 - Initial database migration files
 - Database setup and migration documentation
+- Database access layer with repository pattern
+- Prisma Client singleton for connection management
+- UserRepository for user operations
+- PortfolioRepository for portfolio management
+- ExchangeRepository for encrypted credentials
+- BalanceRepository with upsert support
+- TransactionRepository with filtering and pagination
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function
