@@ -38,6 +38,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ExchangeRepository for encrypted credentials
 - BalanceRepository with upsert support
 - TransactionRepository with filtering and pagination
+- AES-256-GCM encryption utilities for API credentials
+- `encrypt()` and `decrypt()` functions with scrypt key derivation
+- `encryptCredentials()` and `decryptCredentials()` helper functions
+- `getEncryptionSecret()` environment config function
+- ENCRYPTION_SECRET to .env.example
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function

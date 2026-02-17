@@ -29,3 +29,21 @@ export function getCoinDCXConfig(): CoinDCXConfig {
 }
 
 export type AppConfig = ReturnType<typeof loadConfig>;
+
+/**
+ * Get encryption secret for API credentials
+ * Used to encrypt/decrypt exchange API keys stored in database
+ */
+export function getEncryptionSecret(): string {
+  const secret = process.env.ENCRYPTION_SECRET;
+  if (!secret) {
+    throw new Error(
+      'Missing ENCRYPTION_SECRET environment variable. ' +
+      'Generate one with: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"'
+    );
+  }
+  if (secret.length < 32) {
+    throw new Error('ENCRYPTION_SECRET must be at least 32 characters long');
+  }
+  return secret;
+}
