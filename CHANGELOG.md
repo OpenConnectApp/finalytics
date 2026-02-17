@@ -43,6 +43,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `encryptCredentials()` and `decryptCredentials()` helper functions
 - `getEncryptionSecret()` environment config function
 - ENCRYPTION_SECRET to .env.example
+- ExchangeService as core business logic layer
+- connectExchange with credential validation and encryption
+- disconnectExchange with soft delete support
+- syncBalances - live balance fetch and database upsert
+- syncTransactions - trade history sync with deduplication
+- syncAll - full sync across all connected exchanges
+- Sensitive credential stripping on getConnectedExchanges
 
 ### Changed
 - Refactored test script to use separate coindcxBalance() function

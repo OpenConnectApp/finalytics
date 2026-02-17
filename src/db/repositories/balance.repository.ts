@@ -1,5 +1,5 @@
 import { prisma } from '../client.js';
-import type { Balance, Prisma } from '@prisma/client';
+import type { Balance } from '@prisma/client';
 
 /**
  * Balance Repository
