@@ -36,14 +36,17 @@ const decryptedCreds = decryptCredentials(encryptedCreds, SECRET);
 
 console.log('\nTest 3: Credential pair encryption');
 console.log('  API Key Match:', credentials.apiKey === decryptedCreds.apiKey ? '✅' : '❌');
-console.log('  API Secret Match:', credentials.apiSecret === decryptedCreds.apiSecret ? '✅' : '❌');
+console.log(
+  '  API Secret Match:',
+  credentials.apiSecret === decryptedCreds.apiSecret ? '✅' : '❌'
+);
 
 // Test 4: Wrong secret fails
 console.log('\nTest 4: Wrong secret fails');
 try {
   decrypt(encrypted, 'wrong-secret-key-that-is-also-long-enough');
   console.log('  Should have failed: ❌');
-} catch (e) {
+} catch {
   console.log('  Correctly rejected wrong secret: ✅');
 }
 
