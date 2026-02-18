@@ -124,10 +124,12 @@ export class ExchangeService {
   /**
    * Get all connected exchanges for a user (without credentials)
    */
-  async getConnectedExchanges(userId: string): Promise<Omit<ConnectedExchange, 'apiKey' | 'apiSecret'>[]> {
+  async getConnectedExchanges(
+    userId: string
+  ): Promise<Omit<ConnectedExchange, 'apiKey' | 'apiSecret'>[]> {
     const exchanges = await exchangeRepository.findByUserId(userId);
     // Strip sensitive fields before returning
-    return exchanges.map(({ apiKey, apiSecret, ...safe }) => safe);
+    return exchanges.map(({ apiKey: _apiKey, apiSecret: _apiSecret, ...safe }) => safe);
   }
 
   /**
@@ -155,11 +157,7 @@ export class ExchangeService {
    * Sync balances for a user's exchange
    * Fetches live balances and upserts into database
    */
-  async syncBalances(
-    userId: string,
-    portfolioId: string,
-    exchangeId: ExchangeId
-  ): Promise<number> {
+  async syncBalances(userId: string, portfolioId: string, exchangeId: ExchangeId): Promise<number> {
     const exchange = await exchangeRepository.findByUserAndExchange(userId, exchangeId);
     if (!exchange || !exchange.isActive) {
       throw new Error(`Exchange ${exchangeId} not connected for this user`);
@@ -230,24 +228,19 @@ export class ExchangeService {
       // Extract price from metadata if available (CoinSwitch stores it there)
       const price = tx.metadata?.price as number | undefined;
 
-      await transactionRepository.upsert(
-        portfolioId,
+      await transactionRepository.upsert(portfolioId, exchangeId, tx.id, {
+        portfolio: { connect: { id: portfolioId } },
         exchangeId,
-        tx.id,
-        {
-          portfolio: { connect: { id: portfolioId } },
-          exchangeId,
-          externalId: tx.id,
-          type: tx.type.toUpperCase() as any,
-          currency: tx.currency,
-          amount: tx.amount,
-          price: price ?? null,
-          fee: tx.fee ?? null,
-          status: tx.status ?? null,
-          timestamp: tx.timestamp,
-          metadata: tx.metadata as Prisma.InputJsonValue | undefined,
-        }
-      );
+        externalId: tx.id,
+        type: tx.type.toUpperCase() as any,
+        currency: tx.currency,
+        amount: tx.amount,
+        price: price ?? null,
+        fee: tx.fee ?? null,
+        status: tx.status ?? null,
+        timestamp: tx.timestamp,
+        metadata: tx.metadata as Prisma.InputJsonValue | undefined,
+      });
       synced++;
     }
 

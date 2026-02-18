@@ -1,0 +1,11 @@
+echo "🔍 Running pre-push checks..."
+
+# Run TypeScript type check
+echo "📘 Type checking..."
+pnpm run type-check
+
+# Run build to ensure no compilation errors
+echo "🏗️  Building..."
+pnpm run build
+
+echo "✅ Pre-push checks passed!"
